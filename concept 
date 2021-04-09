@@ -1,0 +1,49 @@
+class Game {
+
+
+    constructor(height, width) {
+
+    this.height = height
+    this.width = width
+    this.board = makeBoard()
+    this.makeHTMLboard = makeHTMLboard()
+
+    }
+
+    makeBoard(){
+
+    }
+
+    makeHTMLboard() {
+
+    }
+
+    handleClick{
+
+    }
+
+    findSpotForColumn {
+
+    }
+
+    placeInTable {
+
+    }
+
+    endGame {
+
+    }
+   
+    checkForWin{
+
+    }
+
+}
+
+
+
+/* this is an instance
+new Game(6,7)
+
+new Game(7,9)
+
