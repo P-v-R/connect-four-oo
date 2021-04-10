@@ -16,19 +16,16 @@ class Game {
   }
 
 
-
   /** makeBoard: create in-JS board structure:
  *   board = array of rows, each row is array of cells  (board[y][x])
  */
   makeBoard() {
-
     let boardArr = [];
     for (let y = 0; y < this.height; y++) {
       boardArr.push(Array.from({ length: this.width }));
     }
     return boardArr;
   }
-
 
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -115,7 +112,7 @@ class Game {
     spot.append(piece);
   }
 
-  endGame() {
+  endGame(msg) {
     alert(msg);
   }
 
@@ -138,7 +135,7 @@ class Game {
           this.board[y][x] === this.currPlayer
       );
     }
-    let newWin = _win.bind(this)
+    let boundWin = _win.bind(this)
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         // get "check list" of 4 cells (starting here) for each of the different
@@ -169,7 +166,7 @@ class Game {
         ];
 
         // find winner (only checking each win-possibility as needed)
-        if (newWin(horiz) ||newWin(vert) || newWin(diagDR) ||newWin(diagDL)) {
+        if (boundWin(horiz) ||boundWin(vert) || boundWin(diagDR) ||boundWin(diagDL)) {
           return true;
         }
       }
