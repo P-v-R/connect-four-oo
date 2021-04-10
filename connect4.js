@@ -33,12 +33,13 @@ class Game {
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
   makeHTMLboard() {
+    console.log("board is being made");
     const hTMLboard = document.getElementById('board');
 
     // make column tops (clickable area for adding a piece to that column)
     const top = document.createElement('tr');
     top.setAttribute('id', 'column-top');
-    top.addEventListener('click', this.handleClick);
+    top.addEventListener('click', this.handleClick.bind(this));
 
     for (let x = 0; x < this.width; x++) {
       const headCell = document.createElement('td');
@@ -63,10 +64,10 @@ class Game {
   }
 
 
-  handleClick() {
-    console.log("handleClick ran")
+  handleClick(evt) {
+    console.log("handleClick ran, this =", this);
     // get x from ID of clicked cell
-    const x = +this.evt.target.id;
+    const x = +evt.target.id;
 
     // get next spot in column (if none, ignore click)
     const y = this.findSpotForCol(x);
@@ -89,11 +90,13 @@ class Game {
     }
 
     // switch players
+    console.log("are we getting here?");
     this.currPlayer = this.currPlayer === 1 ? 2 : 1;
   }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
-  findSpotForColumn() {
+  findSpotForCol(x) {
+    console.log("findSpotForCol running");
     for (let y = this.height - 1; y >= 0; y--) {
       if (!this.board[y][x]) {
         return y;
@@ -102,7 +105,7 @@ class Game {
     return null;
   }
 
-  placeInTable() {
+  placeInTable(y,x) {
     const piece = document.createElement('div');
     piece.classList.add('piece');
     piece.classList.add(`p${this.currPlayer}`);
@@ -117,7 +120,9 @@ class Game {
   }
 
   checkForWin() {
+    console.log("running checkForWin this = ", this)
     function _win(cells) {
+      console.log('_win rinning this is =', this)
       // Check four cells to see if they're all color of current player
       //  - cells: list of four (y, x) cells
       //  - returns true if all are legal coordinates & all match currPlayer
@@ -162,7 +167,7 @@ class Game {
         ];
 
         // find winner (only checking each win-possibility as needed)
-        if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+        if (_win(horiz) ||_win(vert) || _win(diagDR) ||_win(diagDL)) {
           return true;
         }
       }
