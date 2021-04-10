@@ -121,7 +121,9 @@ class Game {
 
   checkForWin() {
     console.log("running checkForWin this = ", this)
+    
     function _win(cells) {
+      
       console.log('_win rinning this is =', this)
       // Check four cells to see if they're all color of current player
       //  - cells: list of four (y, x) cells
@@ -136,7 +138,7 @@ class Game {
           this.board[y][x] === this.currPlayer
       );
     }
-
+    let newWin = _win.bind(this)
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         // get "check list" of 4 cells (starting here) for each of the different
@@ -167,7 +169,7 @@ class Game {
         ];
 
         // find winner (only checking each win-possibility as needed)
-        if (_win(horiz) ||_win(vert) || _win(diagDR) ||_win(diagDL)) {
+        if (newWin(horiz) ||newWin(vert) || newWin(diagDR) ||newWin(diagDL)) {
           return true;
         }
       }
